@@ -1,0 +1,96 @@
+[
+  {
+    "id": 1,
+    "name": "Product 1",
+    "createdAt": { "$date": "2023-12-01T00:00:00Z" },
+    "updatedAt": { "$date": "2023-12-01T00:00:00Z" },
+    "variants": [
+      { "id": 1, "name": "Variant 1", "price": 100, "options": [{ "color": "blue", "size": "S" }] }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Product 2",
+    "createdAt": { "$date": "2023-12-01T00:00:30Z" },
+    "updatedAt": { "$date": "2023-12-01T00:00:30Z" },
+    "variants": [
+      { "id": 2, "name": "Variant 2", "price": 150, "options": [{ "color": "red", "size": "M" }] }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Product 3",
+    "createdAt": { "$date": "2023-12-01T00:00:45Z" },
+    "updatedAt": { "$date": "2023-12-01T00:00:45Z" },
+    "variants": [
+      { "id": 3, "name": "Variant 3", "price": 200, "options": [{ "color": "green", "size": "L" }] },
+      { "id": 4, "name": "Variant 4", "price": 250, "options": [{ "color": "yellow", "size": "XL" }] }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Product 4",
+    "createdAt": { "$date": "2023-12-01T00:02:00Z" },
+    "updatedAt": { "$date": "2023-12-01T00:02:00Z" },
+    "variants": [
+      { "id": 5, "name": "Variant 5", "price": 300, "options": [{ "color": "black", "size": "M" }] }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Product 5",
+    "createdAt": { "$date": "2023-12-01T00:02:00Z" },
+    "updatedAt": { "$date": "2023-12-01T00:02:00Z" },
+    "variants": [
+      { "id": 6, "name": "Variant 6", "price": 350, "options": [{ "color": "white", "size": "S" }] },
+      { "id": 7, "name": "Variant 7", "price": 400, "options": [{ "color": "pink", "size": "L" }] }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Product 6",
+    "createdAt": { "$date": "2023-12-01T00:02:10Z" },
+    "updatedAt": { "$date": "2023-12-01T00:02:10Z" },
+    "variants": [
+      { "id": 8, "name": "Variant 8", "price": 450, "options": [{ "color": "orange", "size": "M" }] }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Product 7",
+    "createdAt": { "$date": "2023-12-01T00:02:10Z" },
+    "updatedAt": { "$date": "2023-12-01T00:02:50Z" },
+    "variants": [
+      { "id": 9, "name": "Variant 9", "price": 500, "options": [{ "color": "purple", "size": "S" }] },
+      { "id": 10, "name": "Variant 10", "price": 550, "options": [{ "color": "grey", "size": "L" }] }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Product 8",
+    "createdAt": { "$date": "2023-12-01T00:03:00Z" },
+    "updatedAt": { "$date": "2023-12-01T00:03:00Z" },
+    "variants": [
+      { "id": 11, "name": "Variant 11", "price": 600, "options": [{ "color": "brown", "size": "XL" }] }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Product 9",
+    "createdAt": { "$date": "2023-12-01T00:03:00Z" },
+    "updatedAt": { "$date": "2023-12-01T00:03:00Z" },
+    "variants": [
+      { "id": 12, "name": "Variant 12", "price": 650, "options": [{ "color": "maroon", "size": "M" }] },
+      { "id": 13, "name": "Variant 13", "price": 700, "options": [{ "color": "cyan", "size": "S" }] }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Product 10",
+    "createdAt": { "$date": "2023-12-01T00:04:20Z" },
+    "updatedAt": { "$date": "2023-12-01T00:04:20Z" },
+    "variants": [
+      { "id": 14, "name": "Variant 14", "price": 750, "options": [{ "color": "teal", "size": "L" }] }
+    ]
+  }
+]

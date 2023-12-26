@@ -6,3 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+chrono = { version = "0.4.31", features = ["serde"] }
+clap = { version = "4.4.11", features = ["derive"] }
+duration-string = { version = "0.3.0", features = ["serde"] }
+serde = { version = "1.0.193", features = ["derive"] }
+serde_with = { version = "3.4.0", features = ["chrono"] }
+serde_yaml = "0.9.29"
+tokio = { version = "1.35.1", features = ["full"] }

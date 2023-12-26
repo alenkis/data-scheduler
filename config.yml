@@ -1,0 +1,15 @@
+job:
+  name: "Test"
+  # Optional, if not provided, current time will be used
+  start: "2023-12-01T00:00:00Z"
+  schedule: 25
+  ## Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+  scheduleUnit: "s"
+
+source:
+  mongoUri: "mongodb://mongoadmin:secret@localhost:27017/mydatabase?authSource=admin"
+  mongoCollection: "products"
+
+destination:
+  postgresUri: "postgresql://postgres:secret@localhost:5432/products"
+  postgresTable: "public.products_raw"
