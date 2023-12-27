@@ -31,7 +31,7 @@ pub struct Job {
     pub duration: ChronoDuration,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct JobStart(String);
 impl Default for JobStart {
     fn default() -> Self {

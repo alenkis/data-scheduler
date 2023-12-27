@@ -1,5 +1,5 @@
 use crate::config::Config;
-use chrono::{DateTime, Duration, Utc};
+use chrono::{DateTime, Utc};
 use clap::Parser;
 use config::JobStart;
 use std::sync::Arc;
@@ -25,10 +25,10 @@ impl SchedulerState {
     }
 }
 
-async fn execute_job(state: Arc<Mutex<SchedulerState>>, duration: Duration) {
+async fn execute_job(state: Arc<Mutex<SchedulerState>>, config: &Config) {
     let mut state = state.lock().await;
     let start_time = state.last_run_time;
-    let end_time = start_time + duration;
+    let end_time = start_time + config.job.duration;
 
     println!("Mongo query timerange: {:?} - {:?}", start_time, end_time);
 
@@ -44,7 +44,7 @@ async fn execute_job(state: Arc<Mutex<SchedulerState>>, duration: Duration) {
     );
 
     // Execute the mongoexport command
-    let output = Command::new("sh")
+    let mongo_output = Command::new("sh")
         .arg("-c")
         .arg(mongoexport_command.clone())
         .output()
@@ -54,11 +54,31 @@ async fn execute_job(state: Arc<Mutex<SchedulerState>>, duration: Duration) {
             mongoexport_command
         ));
 
-    // out
     println!(
         "mongoexport output: {:?}",
-        String::from_utf8_lossy(&output.stderr)
+        String::from_utf8_lossy(&mongo_output.stderr)
     );
+
+    // Import to Postgres
+    let psql_import_command = format!(
+        "psql {} -c \"\\copy public.products_raw FROM 'products.out.json' WITH (FORMAT csv, QUOTE E'\\x01', DELIMITER E'\\x02')\"",
+        config.destination.postgres_uri
+    );
+
+    let psql_output = Command::new("sh")
+        .arg("-c")
+        .arg(&psql_import_command)
+        .output()
+        .await
+        .expect("Failed to execute PostgreSQL import command");
+
+    if !psql_output.status.success() {
+        let error_message = String::from_utf8_lossy(&psql_output.stderr);
+        println!("PostgreSQL import failed: {}", error_message);
+    } else {
+        println!("PostgreSQL import executed successfully");
+    }
+
     println!("------------------");
 }
 
@@ -71,18 +91,20 @@ async fn main() {
     let duration = config.job.duration;
     println!("Schedule: {}", duration);
 
-    let state = Arc::new(Mutex::new(SchedulerState::new(config.job.start).unwrap()));
+    let state = Arc::new(Mutex::new(
+        SchedulerState::new(config.job.start.clone()).unwrap(),
+    ));
 
     let interval_duration = time::Duration::from_secs(duration.num_seconds() as u64);
 
     // Initial run
     println!("------------------");
-    execute_job(state.clone(), duration).await;
+    execute_job(state.clone(), &config).await;
 
     // Subsequent runs
     let mut interval = time::interval(interval_duration);
     loop {
         interval.tick().await;
-        execute_job(state.clone(), duration).await;
+        execute_job(state.clone(), &config).await;
     }
 }
